@@ -22,3 +22,5 @@ err: Invalid transaction. Only expecting 6 values (for unsigned tx) or 9 values 
 0xd02d72e067e77158444ef2020ff2d325f929b363
 err: invalid RLP (safeSlice): end slice of Uint8Array out-of-bounds
 ```
+
+The program reads from `sample.input` by default, but `ts-node index.ts --stdin` will make it read from the standard input instead.
