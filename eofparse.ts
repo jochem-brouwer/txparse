@@ -20,7 +20,7 @@ function parse(line: string, output?: string) {
         const buf = Buffer.from(parse, 'hex')
         const container = validateCode(buf)
         if (container) {
-            console.log("OK " + container.body.entireCode.toString('hex'))
+            console.log("OK " + container.body.codeSections.map((e: Buffer) => e.toString('hex')).join(','))
             if (output && output.substring(0, 2) !== 'OK') {
                 errors.push('expected invalid container: ' + line)
             }
