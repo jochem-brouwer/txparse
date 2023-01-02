@@ -18,19 +18,22 @@ const eei: any = {}
 
 const evm = new EVM({ common, eei } )
 
-function parse(line: string, output?: string) {
-    let buffer
-    if (line.substr(0, 2) === '0x') {
-        buffer = Buffer.from(line.substr(2), 'hex')
-    } else {
-        buffer = Buffer.from(line, 'hex')
+function getBuffer(input: string) {
+    if (input.substring(0, 1) === ' ') {
+        input = input.substring(1)
+    } else if (input.substring(0, 1) === '-') {
+        input = input.substring(1)
     }
+    if (input.substring(0, 2) === '0x') {
+        return Buffer.from(input.substring(2), 'hex')
+    } else {
+        return Buffer.from(input, 'hex')
+    }
+}
+
+function parse(line: string, output?: string) {
     try {
-        let parse = line 
-        if (parse.substring(0, 2) === '0x') {
-            parse = line.substring(2)
-        }
-        const buf = Buffer.from(parse, 'hex')
+        const buf = getBuffer(line)
         const container = validateCode(buf, evm._opcodes)
         if (container) {
             console.log("OK " + container.body.codeSections.map((e: Buffer) => e.toString('hex')).join(','))
