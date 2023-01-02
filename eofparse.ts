@@ -1,9 +1,22 @@
 import { validateCode } from "./ethereumjs-monorepo/packages/evm/src/eof"
+import { EVM } from "./ethereumjs-monorepo/packages/evm/src/evm";
+import { Chain, Common, Hardfork } from "./ethereumjs-monorepo/packages/common/src";
 
 const fs = require('fs')
 const readline = require('readline');
 
 const errors: string[] = []
+
+const common: any = new Common({
+    chain: Chain.Mainnet,
+    hardfork: Hardfork.Merge,
+    eips: [3540, 3670, 4200, 4750, 5450, 3860, 3855]
+})
+
+
+const eei: any = {}
+
+const evm = new EVM({ common, eei } )
 
 function parse(line: string, output?: string) {
     let buffer
@@ -18,7 +31,7 @@ function parse(line: string, output?: string) {
             parse = line.substring(2)
         }
         const buf = Buffer.from(parse, 'hex')
-        const container = validateCode(buf)
+        const container = validateCode(buf, evm._opcodes)
         if (container) {
             console.log("OK " + container.body.codeSections.map((e: Buffer) => e.toString('hex')).join(','))
             if (output && output.substring(0, 2) !== 'OK') {
