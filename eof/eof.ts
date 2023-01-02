@@ -62,7 +62,7 @@ function checkOpcodes(container: EOFContainer): true {
   // EIP-3670 - validate all opcodes
   const opcodes = new Set()
   for (let index in stackDelta) {
-    opcodes.add(index)
+    opcodes.add(parseInt(index))
   }
   opcodes.add(0xfe) // Add INVALID opcode to set
   opcodes.delete(0x56) // Delete JUMP opcode from set (See EIP 4750)
