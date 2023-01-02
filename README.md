@@ -43,6 +43,7 @@ err: container invalid
 `> EF000101000c020003000d0002000303000000000000020201000100010001B00002B00002B000016000550001B16005B1`
 ok
 
+`sample.input` and `sample.output` are EOF test vectors taken from https://github.com/holiman/txparse
 
 
 

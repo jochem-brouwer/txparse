@@ -31,6 +31,7 @@ if (process.argv[2] === '--stdin') {
     })
 } else {
     const input = fs.readFileSync('sample.input', 'utf-8');
+    const output = fs.readFileSync('sample.output', 'utf-8').split(/\r?\n/)
     input.split(/\r?\n/).forEach((line: any) =>  {
         parse(line)
     })
