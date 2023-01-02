@@ -1,14 +1,7 @@
-import { Chain, Common, Hardfork } from '../../ejs/ethereumjs-monorepo/packages/common'
-import { validateCode } from '../../ejs/ethereumjs-monorepo/packages/evm/src/eof/eof'
+import { validateCode } from './eof'
 
 const fs = require('fs')
 const readline = require('readline');
-
-const c = new Common({
-    chain: Chain.Mainnet,
-    hardfork: Hardfork.London,
-    eips: [3540, 5450, 3860, 5450, 4200, 4750, 3670],
-  })
 
 const errors: string[] = []
 
@@ -38,7 +31,7 @@ function parse(line: string, output?: string) {
             throw new Error("container invalid")
         }
     } catch(e: any) {
-        console.log("err: " + e.message)
+        console.log("err: " + e.message + ', expected error: ' + output)
     }
 }
 
