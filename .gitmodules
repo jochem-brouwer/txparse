@@ -1,3 +1,4 @@
 [submodule "ethereumjs-monorepo"]
 	path = ethereumjs-monorepo
 	url = git@github.com:ethereumjs/ethereumjs-monorepo.git
+	branch = eip4750-5450

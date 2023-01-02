@@ -1,4 +1,4 @@
-import { validateCode } from './eof'
+import { validateCode } from "./ethereumjs-monorepo/packages/evm/src/eof"
 
 const fs = require('fs')
 const readline = require('readline');
