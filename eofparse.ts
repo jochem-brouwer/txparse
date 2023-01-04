@@ -18,8 +18,18 @@ const eei: any = {}
 
 const evm = new EVM({ common, eei } )
 
-function getBuffer(input: string) {
-    return Buffer.from(input.replace(/\W/g, ""), 'hex')
+function getBuffer(line: string) {
+    let input =  line.replace(/\W/g, "")
+    if (input.substring(0, 1) === ' ') {
+        input = input.substring(1)
+    } else if (input.substring(0, 1) === '-') {
+        input = input.substring(1)
+    }
+    if (input.substring(0, 2) === '0x') {
+        return Buffer.from(input.substring(2), 'hex')
+    } else {
+        return Buffer.from(input, 'hex')
+    }
 }
 
 function parse(line: string, output?: string) {
