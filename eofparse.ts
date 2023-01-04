@@ -26,9 +26,11 @@ function getBuffer(line: string) {
         input = input.substring(1)
     }
     if (input.substring(0, 2) === '0x') {
-        return Buffer.from(input.substring(2), 'hex')
+        const len = (input.length - 2) + input.length % 2
+        return Buffer.from(input.substring(2).padStart(len, '0'), 'hex')
     } else {
-        return Buffer.from(input, 'hex')
+        const len = input.length + input.length % 2
+        return Buffer.from(input.padStart(len, '0'), 'hex')
     }
 }
 
@@ -38,9 +40,6 @@ function parse(line: string, output?: string) {
     }
     try {
         const buf = getBuffer(line)
-        if (buf.equals(Buffer.from(''))) {
-            return
-        }
         const container = validateCode(buf, evm._opcodes)
         if (container) {
             console.log("OK " + container.body.codeSections.map((e: Buffer) => e.toString('hex')).join(','))
