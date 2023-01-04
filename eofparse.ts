@@ -23,6 +23,9 @@ function getBuffer(input: string) {
 }
 
 function parse(line: string, output?: string) {
+    if (line.substring(0,1) === '#') {
+        return
+    }
     try {
         const buf = getBuffer(line)
         const container = validateCode(buf, evm._opcodes)
