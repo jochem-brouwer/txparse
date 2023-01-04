@@ -28,6 +28,9 @@ function parse(line: string, output?: string) {
     }
     try {
         const buf = getBuffer(line)
+        if (buf.equals(Buffer.from(''))) {
+            return
+        }
         const container = validateCode(buf, evm._opcodes)
         if (container) {
             console.log("OK " + container.body.codeSections.map((e: Buffer) => e.toString('hex')).join(','))
